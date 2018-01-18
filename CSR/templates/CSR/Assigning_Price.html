@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+                    $('.otree-timer').warn();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Stufe 1 - Zuordnung 2
+{% endblock %}
+
+{% block content %}
+   <p> In den Instruktionen wurde Ihnen der nachfolgende Markt beschrieben. Sie können jederzeit in den Instruktionen nachschauen. </p>
+<br>
+        <p> Im Folgenden fragen wir Sie nach Ihrer Einschätzung zu der Frage, wer bei einem realisierten Handel in dem nachfolgenden Markt (Stufe 2) verantwortlich ist für die <b>Preis des gehandelten Produktes.</b>  D.h. wenn ein Produkt verkauft wird, wer ist verantwortlich, ob Produkttyp A oder B gehandelt wird?
+Sie werden im Nachfolgenden für jede Person einzeln gefragt (Sie können für jede Person ihre Antwort frei wählen). Bitte klicken Sie für jeden Teilnehmertyp an:</p>
+
+
+
+    {% formfield player.person_A_price label="Teilnehmer Typ A" %}
+    {% formfield player.person_B_price label="Teilnehmer Typ B" %}
+    {% formfield player.person_C_price label="Teilnehmer Typ C" %}
+
+    {% next_button %}
+
+{% endblock %}

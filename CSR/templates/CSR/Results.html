@@ -1,0 +1,196 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+ <table border="1">
+     <tr>
+         <td>Das Marktexperiment befindet sich in <b> Runde {{ player.round_number }}</b> von insgesamt <b>{{ Constants.num_rounds }} Runden </b></td>
+     </tr>
+ </table>
+<br>
+
+<p>
+Hier siehst du, was diese Runde passiert ist.
+
+</p>
+
+<table>
+    <tr>
+        <td> Dein finaler Payoff:</td>
+        <td> <b>{{ player.payoff }}</b></td>
+    </tr>
+</table>
+
+<br>
+{% if player.role == "Producer1" or player.role == "Producer2" or player.role == "Producer3" or player.role == "Producer4" %}
+<table class="table table-striped table-hover">
+    <tr>
+        <td colspan="3" align="CENTER"> <b>Marktübersicht</b></td>
+    </tr>
+    <tr>
+        <td> <b>Preis</b></td>
+        <td> <b>Produktart </b></td>
+        <td> <b>Reihenfolge der Annahme</b></td>
+    </tr>
+        {% for p in list %}
+                     {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer3" or p.role == "Producer4" %}
+                        <tr>
+                            <td> {{ p.offer_price }}</td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen für Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                            {% if p.got_accepted == True %}
+                                {% if p.order_acceptance == 1 %}
+                                <td> Wurde als erstes gekauft</td>
+                                {% elif p.order_acceptance == 2 %}
+                                <td> Wurde als zweites gekauft</td>
+                                {% elif p.order_acceptance == 3 %}
+                                <td> Wurde als drittes gekauft</td>
+                                {% endif %}
+                            {% else %}
+                                <td> Wurde nicht gekauft</td>
+                            {% endif %}
+                        </tr>
+                     {% endif %}
+        {% endfor %}
+</table>
+{% endif %}
+
+{% if player.role == "Consumer1" or player.role == "Consumer2" or player.role == "Consumer3" %}
+
+    {% if player.accept != "Keine Angebotsannahme" %}
+    <table class="table table-striped table-hover">
+
+        {% if player.accept == "Annahme Angebot 1" %}
+         <tr>
+            <td> Du hast Angebot 1 angenommen </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td> Dein Payoff</td>
+            <td> {{ player.payoff }}</td>
+         </tr>
+             {% for p in list %}
+             {% if p.role == "Producer1" %}
+             <tr>
+                <td> Payoff Produzent: </td>
+                 <td>  {{ p.payoff }} </td>
+             </tr>
+            {% endif %}
+             {% endfor %}
+         {% endif %}
+
+        {% if player.accept == "Annahme Angebot 2" %}
+         <tr>
+            <td> Du hast Angebot 2 angenommen </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td> Dein Payoff</td>
+            <td> {{ player.payoff }}</td>
+         </tr>
+            {% for p in list %}
+             {% if p.role == "Producer2" %}
+             <tr>
+                <td> Payoff Produzent: </td>
+                 <td>  {{ p.payoff }} </td>
+             </tr>
+            {% endif %}
+             {% endfor %}
+         {% endif %}
+
+        {% if player.accept == "Annahme Angebot 3" %}
+         <tr>
+            <td> Du hast Angebot 3 angenommen </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td> Dein Payoff</td>
+            <td> {{ player.payoff }}</td>
+         </tr>
+             {% for p in list %}
+             {% if p.role == "Producer3" %}
+             <tr>
+                <td> Payoff Produzent: </td>
+                 <td>  {{ p.payoff }} </td>
+             </tr>
+            {% endif %}
+             {% endfor %}
+         {% endif %}
+
+         {% if player.accept == "Annahme Angebot 4" %}
+         <tr>
+            <td> Du hast Angebot 4 angenommen </td>
+            <td></td>
+         </tr>
+         <tr>
+            <td> Dein Payoff</td>
+            <td> {{ player.payoff }}</td>
+         </tr>
+             {% for p in list %}
+             {% if p.role == "Producer4" %}
+             <tr>
+                <td> Payoff Produzent: </td>
+                 <td>  {{ p.payoff }} </td>
+             </tr>
+            {% endif %}
+             {% endfor %}
+         {% endif %}
+             <tr>
+                <td> Third Party Payoff:</td>
+                <td> {{ player.tp_payoff }} Points</td>
+             </tr>
+    </table>
+
+    {% endif %}
+
+
+
+    {% if player.accept == "Keine Angebotsannahme" %}
+     <p> Du hast kein Angebot angenommen.</p>
+     <table class="table table-striped table-hover">
+         <tr><td>Dein Payoff:</td>
+             <td> 100 Points</td>
+         </tr>
+        <tr>
+            <td> Payoff der Third Person:</td>
+            <td> 100 Points</td>
+        </tr>
+     </table>
+
+    {% endif %}
+
+
+{% endif %}
+    {% next_button %}
+
+{% endblock %}

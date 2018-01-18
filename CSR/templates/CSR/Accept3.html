@@ -1,0 +1,376 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+                    $('.otree-timer').warn();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}
+    Deine Kaufentscheidung
+{% endblock %}
+
+{% block content %}
+ <table border="1">
+     <tr>
+         <td>Das Marktexperiment befindet sich in <b> Runde {{ player.round_number }}</b> von insgesamt <b>{{ Constants.num_rounds }} Runden </b></td>
+     </tr>
+ </table>
+<br>
+
+<p>
+Du entscheidest als Dritter.
+Aus folgenden Angeboten kannst du auswählen (Die Reihenfolge Angebote ist zufällig):
+
+</p>
+<table  class="table table-striped table-hover">
+    <tr>
+        <td> <b>Angebot</b></td>
+        <td> <b>Preis</b></td>
+        <td> <b>Produktart</b></td>
+    </tr>
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 1" %}
+                {% for p in list %}
+                    {% if p.accept == "Annahme Angebot 2" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer3" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 1" %}
+                {% for p in list %}
+                    {% if p.accept == "Annahme Angebot 3" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer2" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 1" %}
+                {% for p in list %}
+                    {% if p.accept == "Annahme Angebot 4" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer2" or p.role == "Producer3" %}
+                             <tr>
+                             <td> {% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 1" %}
+                {% for p in list %}
+                    {% if p.accept == "Keine Angebotsannahme" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer2" or p.role == "Producer3" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer Ct</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 2" %}
+                {% for p in list %}
+                    {% if p.accept == "Annahme Angebot 3" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td>  Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 2" %}
+                {% for p in list %}
+                    {% if p.accept == "Annahme Angebot 4" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer3" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 2" %}
+                {% for p in list %}
+                    {% if p.accept == "Keine Angebotsannahme" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer3" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 3" %}
+                {% for p in list %}
+                    {% if p.accept == "Annahme Angebot 4" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer2" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer2" %} Angebot 2:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 3" %}
+                {% for p in list %}
+                    {% if p.accept == "Keine Angebotsannahme" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+            {% if p.accept == "Annahme Angebot 4" %}
+                {% for p in list %}
+                    {% if p.accept == "Keine Angebotsannahme" %}
+                        {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer3" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for p in list %}
+
+            {% if p.accept == "Keine Angebotsannahme" and p.role == "Consumer1" %}
+                {% for p in list %}
+                    {% if p.accept == "Keine Angebotsannahme" %}
+                        {% if p.role == "Consumer2"%}
+                           {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer3" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                        {% elif p.accept == "Keine Angebotsannahme" %}
+                                {% if p.role == "Consumer3" %}
+                                    {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer3" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                    {% endfor %}
+            {% endif %}
+
+
+            {% if p.accept == "Keine Angebotsannahme" and p.role == "Consumer2" %}
+                {% for p in list %}
+                    {% if p.accept == "Keine Angebotsannahme" %}
+                        {% if p.role == "Consumer3" %}
+                           {% for p in list %}
+                            {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer3" or p.role == "Producer4" %}
+                             <tr>
+                             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %}{% if p.role == "Producer2" %} Angebot 2:{% endif %}{% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+                             <td>{{ p.offer_price }}   </td>
+                            {% if p.product_type == True %}
+                                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+                            {% else %}
+                                <td> Produkt mit Verlust für Teilnehmer C</td>
+                            {% endif %}
+                             </tr>
+                             <tr></tr>
+
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+
+        {% endfor %}
+
+
+</table>
+
+
+
+    {% formfield player.accept label="Welches Angebot möchtest du annehmen?" %}
+
+
+
+
+    {% next_button %}
+
+
+{% endblock %}

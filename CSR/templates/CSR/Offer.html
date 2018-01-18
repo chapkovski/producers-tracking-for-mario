@@ -1,0 +1,54 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+                    $('.otree-timer').warn();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}
+    Dein Angebot
+{% endblock %}
+
+{% block content %}
+ <table border="1">
+     <tr>
+         <td>Das Marktexperiment befindet sich in <b> Runde {{ player.round_number }}</b> von insgesamt <b>{{ Constants.num_rounds }} Runden </b></td>
+     </tr>
+ </table>
+<br>
+<p>
+Hier kannst du nun dein Angebot angeben.
+
+</p>
+
+        {% formfield player.product_type label="Welche Art von Produkt möchten Sie anbieten?" %}
+        {% formfield player.offer_price label="Wie viel soll das Produkt kosten?" %}
+
+
+
+
+
+    {% next_button %}
+
+
+{% endblock %}

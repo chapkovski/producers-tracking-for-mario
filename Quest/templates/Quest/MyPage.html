@@ -1,0 +1,45 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Abschlussfragebogen Teil 1
+{% endblock %}
+
+{% block content %}
+
+
+
+    {% formfield player.good_person label="Halten Sie sich selbst für einen guten Menschen?" %}
+    {% formfield player.social_person label="In wie weit schätzen Sie Ihre Handlungen im zweiten Teil des Experiments als sozial aktzeptabel ein" %}
+    {% formfield player.effect_participants label="Inwiefern hat Sie bei der Antwort auf die Frage zur Verantwortlichkeit die Anzahl der verschiedenen Teilnehmer pro Gruppe beeinflusst?" %}
+    {% formfield player.sex label="Bitte geben Sie uns Ihr Geschlecht an?" %}
+    {% formfield player.age label="Bitte wählen Sie Ihr Alter (in Jahren) aus" %}
+    {% formfield player.semester label="Bitte wählen Sie das Fachsemester aus, in dem Sie sich gerade befinden" %}
+    {% formfield player.study_subject label="Geben Sie bitte Ihre Studienrichtung an" %}
+    {% formfield player.comment label="Sie können uns noch Kommentare zu dieser Studie geben, wenn Sie möchten" %}
+
+
+    {% next_button %}
+{% endblock %}

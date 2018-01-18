@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+                    $('.otree-timer').warn();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Deine Kaufentscheidung
+{% endblock %}
+
+{% block content %}
+ <table border="1">
+     <tr>
+         <td>Das Marktexperiment befindet sich in <b> Runde {{ player.round_number }}</b> von insgesamt <b>{{ Constants.num_rounds }} Runden </b></td>
+     </tr>
+ </table>
+<br>
+
+    <p>
+Du entscheidest als Erster.
+Aus folgenden Angeboten kannst du auswählen (Die Reihenfolge der Angebote ist zufällig):
+
+</p>
+<table  class="table table-striped table-hover">
+    <tr>
+        <td> <b>Angebot</b></td>
+        <td> <b>Preis</b></td>
+        <td> <b>Produktart</b></td>
+    </tr>
+    {% for p in list %}
+         {% if p.role == "Producer1" or p.role == "Producer2" or p.role == "Producer3" or p.role == "Producer4" %}
+             <tr>
+             <td> {% if p.role == "Producer1" %} Angebot 1:{% endif %} {% if p.role == "Producer2" %} Angebot 2:{% endif %} {% if p.role == "Producer3" %} Angebot 3:{% endif %}{% if p.role == "Producer4" %} Angebot 4:{% endif %}</td>
+             <td>{{ p.offer_price }}   </td>
+             {% if p.product_type == True %}
+                <td> Produkt ohne Auswirkungen auf Teilnehmer C</td>
+            {% else %}
+                <td> Produkt mit Verlust für Teilnehmer C</td>
+            {% endif %}
+             </tr>
+             <tr></tr>
+
+         {% endif %}
+    {% endfor %}
+    <tr>
+        <td>{{ Player.color }}</td>
+        <td>{{ Group.s_player }}</td>
+         <td>{{ Group.t_player }}</td>
+    </tr>
+</table>
+
+
+
+
+    {% formfield player.accept label=" Welches Angebot möchtest du annehmen?" %}
+
+
+    {% next_button %}
+{% endblock %}

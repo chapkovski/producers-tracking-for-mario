@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Teil 2
+{% endblock %}
+
+{% block content %}
+<body bgcolor="grey">
+    <p>
+        <font size="5">Sie befinden sich nun im 2. Teil der Studie. Zur Erinnerung: Ihre Rolle in diesem Experiment ist  {% if player.role == "Producer1"  or player.role == "Producer2" or player.role == "Producer3" or player.role == "Producer4"%} <b> Produzent </b> {% endif %}{% if player.role == "Consumer1"  or player.role == "Consumer2" or player.role == "Consumer3"%} <b> Konsument </b> {% endif %}
+<br>Wenn Sie bereit sind zu beginnen, klicken Sie bitte auf "Next"</font>
+    </p>
+</body>
+
+    {% next_button %}
+{% endblock %}

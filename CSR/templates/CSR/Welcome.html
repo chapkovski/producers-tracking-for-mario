@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Herzlich Willkommen!
+{% endblock %}
+
+{% block content %}
+
+
+    <p> <font size="4"> Bitte lesen Sie zunächst die Instruktionen durch. Wenn Sie damit fertig sind und keine Fragen haben, klicken Sie bitte auf "Next"</p>
+<br>
+<br>
+
+   <p> Ab jetzt und für das gesamte Experiment sind Sie: {% if player.role == "Producer1"  or player.role == "Producer2" or player.role == "Producer3" or player.role == "Producer4"%} <b> Produzent </b> {% endif %}{% if player.role == "Consumer1"  or player.role == "Consumer2" or player.role == "Consumer3"%} <b> Konsument </b> {% endif %}</P>
+<br>
+<br>
+
+    {% next_button %}
+
+{% endblock %}

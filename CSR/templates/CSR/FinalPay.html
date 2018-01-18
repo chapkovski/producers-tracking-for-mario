@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+                    $('.otree-timer').warn();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}
+    Deine Auszahlung
+{% endblock %}
+
+{% block content %}
+<p>
+Deine Auszahlungsrunde war {{ paying_round }} aus Teil 2 des Experiments.
+Dein Auszahlungsbetrag beträgt: {{ final_payoff }}
+
+</p>
+
+
+    {% next_button %}
+
+
+{% endblock %}

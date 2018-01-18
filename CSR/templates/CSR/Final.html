@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Vielen Dank für Ihre Teilnahme an diesem Experiment!
+{% endblock %}
+
+{% block content %}
+
+    <b> <font size="4"> Sie erhalten gleich Ihre Auszahlung. Bitte warten Sie, bis die Nummer auf Ihrem Bildschirm aufgerufen wird.</font></b>
+<br>
+<br>
+     {% if session.vars.part_payoff == 1 %}<p> <font size="4"> Per Zufallsgenerator wurde aus <b> Teil 1 Frage {{ session.vars.rand_quest }}</b> zur Ermittlung deines finalen Payoffs ausgewählt.</font></p>{% endif %}
+
+    {% if session.vars.part_payoff == 2 %}<p><font size="4"> Per Zufallsgenerator wurde aus <b> Teil 2 Runde {{ session.vars.paying_round }}</b> zur Ermittlung deines finalen Payoffs ausgewählt.  </font></p>{% endif %}
+    <p> <font size="4">Ihre endgültige Auszahlung beträgt daher <b>{{ player.final_payoff }} Punkte </b>. </font></p>
+    <p> {{ group.i }}</p>
+        <p> {{ group.j }}</p>
+        <p> {{ group.k }}</p>
+        <p> {{ group.l }}</p>
+<br>
+    <b> <font size ="4">Bitte nehmen Sie folgende Dinge mit zum Ausgang:</font></b>
+<br>
+    <table align="CENTER">
+        <tr><td> <font size ="5"></font></td></tr>
+        <tr><td></td></tr>
+        <tr> <td> <font size = "5">- die Instruktionen </font> </td></tr>
+        <tr> <td> <font size = "5">- die Platzkarte </font></td></tr>
+        <tr> <td> <font size = "5">- den Stift </font></td></tr>
+        <tr> <td> <font size ="5"> - die <b> ausgefüllte und unterschriebene </b> Quittung </font></td></tr>
+    </table>
+{% endblock %}
