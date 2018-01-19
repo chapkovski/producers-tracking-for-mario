@@ -1,0 +1,21 @@
+<table class="table table-striped table-hover table-responsive">
+    <thead>
+    <tr>
+        <th>Producer</th>
+        <th>Price</th>
+        <th>Product type</th>
+        <th>Accepted</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for d in data %}
+        <tr {% if d.accepted == 'Yes'%} class="success"{% endif %}>
+        <td>{{ d.producer_name }}</td>
+        <td>{{ d.price }}</td>
+        <td>{{ d.product_type }}</td>
+        <td>{{ d.accepted }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

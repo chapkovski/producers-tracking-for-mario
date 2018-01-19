@@ -1,0 +1,9 @@
+{% extends 'otree/WaitPage.html' %}
+{% load staticfiles otree %}
+{% block title %}{{ title_text }}{% endblock %}
+{% block content %}
+{%  include 'CSR/includes/results_table.html'  with data=data %}
+    {{ body_text }}
+
+
+{% endblock %}
