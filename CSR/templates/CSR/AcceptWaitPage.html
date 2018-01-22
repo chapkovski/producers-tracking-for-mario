@@ -2,7 +2,9 @@
 {% load staticfiles otree %}
 {% block title %}{{ title_text }}{% endblock %}
 {% block content %}
-{%  include 'CSR/includes/results_table.html'  with data=data %}
+    {% if player.role_stub == 'Producer' %}
+        {% include 'CSR/includes/results_table.html' %}
+    {% endif %}
     {{ body_text }}
 
 

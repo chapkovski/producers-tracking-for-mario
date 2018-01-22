@@ -6,6 +6,19 @@ from .models import Constants
 TIMER_TEXT = "Damit es zu keinen Verzögerungen kommt, bitten wir Sie, schnellst möglich eine Auswahl zu treffen."
 
 
+def vars_for_all_templates(self):
+    transactions = self.group.transactions.all()
+    data = []
+    for t in transactions:
+        i = {}
+        i['producer_name'] = t.producer.role
+        i['price'] = t.producer.offer_price
+        i['product_type'] = t.producer.get_product_type_display()
+        i['accepted'] = 'Yes' if t.consumer else 'No'
+        data.append(i)
+    return {'data': data,}
+
+
 class CustomPage(Page):
     timer_text = TIMER_TEXT
 
@@ -13,17 +26,6 @@ class CustomPage(Page):
 class CustomWaitPage(WaitPage):
     template_name = 'CSR/AcceptWaitPage.html'
 
-    def vars_for_template(self):
-        transactions = self.group.transactions.all()
-        data = []
-        for t in transactions:
-            i = {}
-            i['producer_name'] = t.producer.role
-            i['price'] = t.producer.offer_price
-            i['product_type'] = t.producer.get_product_type_display()
-            i['accepted'] = 'Yes' if t.consumer else 'No'
-            data.append(i)
-        return {'data': data}
 
 class FirstPage(CustomPage):
     def is_displayed(self):
@@ -72,12 +74,17 @@ class AcceptPage(CustomPage):
     form_model = models.Player
     form_fields = ['accept']
     timeout_seconds = 30
+    template_name = 'CSR/Accept.html'
+
+    def order_name(self):
+        order_names = ['Erster', 'Zweiter', 'Dritter']
+        return order_names[self.att - 1]
 
     def vars_for_template(self):
         return {'list': self.group.get_players()}
 
     def before_next_page(self):
-        if self.player.accept  not in (None, 'None'):
+        if self.player.accept not in (None, 'None'):
             self.group.transactions.filter(producer__id_in_group=self.player.accept).update(consumer=self.player)
         self.group.got_accepted()
 

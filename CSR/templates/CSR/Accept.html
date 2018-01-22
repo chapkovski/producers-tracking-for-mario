@@ -1,0 +1,44 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block styles %}
+    <style>
+        .otree-timer {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(function () {
+            $('.otree-timer__time-left').off('finish.countdown');
+            $('.otree-timer__time-left').on('update.countdown', function (event) {
+                if (event.offset.totalSeconds === 15) {
+                    $('.otree-timer').show();
+                    $('.otree-timer').warn();
+
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Deine Kaufentscheidung
+{% endblock %}
+
+{% block content %}
+    {% include 'CSR/includes/results_table.html' %}
+    <p>
+        Du entscheidest als {{ view.order_name }}.
+        Aus folgenden Angeboten kannst du auswählen (Die Reihenfolge der Angebote ist zufällig):
+
+    </p>
+
+
+    {% formfield player.accept label=" Welches Angebot möchtest du annehmen?" %}
+
+
+    {% next_button %}
+{% endblock %}
