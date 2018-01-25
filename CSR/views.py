@@ -146,23 +146,28 @@ class Quest_2(LastPage):
 class Final(LastPage):
     ...
 
+class Radio(Page):
+    form_model = models.Player
+    form_fields = ['three']
+
 
 page_sequence = [
-    Welcome,
-    Assigning_Type,
-    Assigning_Price,
-    Instruction,
-    Offer,
-    OfferWaitPage,
-    Accept1,
-    AcceptWaitPage,
-    Accept2,
-    AcceptWaitPage,
-    Accept3,
-    ProducerWaitPage,
-    Results,
-    Quest_1,
-    Quest_2,
-    FinalPay,
-    Final,
+    # Welcome,
+    # Assigning_Type,
+    # Assigning_Price,
+    # Instruction,
+    # Offer,
+    # OfferWaitPage,
+    # Accept1,
+    # AcceptWaitPage,
+    # Accept2,
+    # AcceptWaitPage,
+    # Accept3,
+    # ProducerWaitPage,
+    # Results,
+    # Quest_1,
+    # Quest_2,
+    # FinalPay,
+    # Final,
+    Radio,
 ]

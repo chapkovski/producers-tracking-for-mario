@@ -50,7 +50,7 @@ class Subsession(BaseSubsession):
                 p.offers.create(group=g)
             for i, c in enumerate(g.consumers):
                 c.att = attribute[i]
-            print(g.get_consumer_choices())
+            
 
 
 class Group(BaseGroup):
@@ -178,6 +178,10 @@ class Player(BasePlayer):
         'Medizintechnick',
         'Anthropologie', 'Sonstiges', 'Wirtschaftswissenschaften', 'Humanmedizin', 'Wirtschaftspädagogik'))
     comment = models.TextField(null=True, blank=True)
+    from radiogrid import RadioGridField
+    ROWS = ((1, 'Guilt'), (2, "Remorse"), (3, "Regret"))
+    VALUES = ((1, "1"), (2, "2"), (3, "3"), (4, "4"), (5, "5"), (6, "6"), (7, "7"))
+    three = RadioGridField(rows=ROWS, values=VALUES, require_all_fields=True,toprow=['Überhaupt nicht','Voll und ganz'])
 
 
 class MarketTransaction(djmodels.Model):
